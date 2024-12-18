@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz de Pascal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-size: 20px;
+            color: blue;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        td {
+            padding: 5px 10px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Matriz de Pascal</h1>
+    
+    <input type="number" id="filas" placeholder="Número de filas" min="1" />
+    <button onclick="generarMatrizPascal()">Generar</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function generarMatrizPascal() {
+            const filas = parseInt(document.getElementById('filas').value);
+            if (isNaN(filas) || filas < 1) {
+                mostrarResultado("Por favor, ingresa un número válido de filas.");
+                return;
+            }
+
+            const matriz = [];
+            for (let i = 0; i < filas; i++) {
+                matriz[i] = [];
+                for (let j = 0; j <= i; j++) {
+                    if (j === 0 || j === i) {
+                        matriz[i][j] = 1;
+                    } else {
+                        matriz[i][j] = matriz[i - 1][j - 1] + matriz[i - 1][j];
+                    }
+                }
+            }
+
+            mostrarResultado(matriz);
+        }
+
+        function mostrarResultado(matriz) {
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = ''; 
+
+            const tabla = document.createElement('table');
+            for (let i = 0; i < matriz.length; i++) {
+                const fila = document.createElement('tr');
+                for (let j = 0; j < matriz[i].length; j++) {
+                    const celda = document.createElement('td');
+                    celda.textContent = matriz[i][j];
+                    fila.appendChild(celda);
+                }
+                tabla.appendChild(fila);
+            }
+            resultadoDiv.appendChild(tabla);
+        }
+    </script>
+
+</body>
+</html>

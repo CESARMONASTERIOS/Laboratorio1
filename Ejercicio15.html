@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor a Números Romanos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-size: 20px;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Conversor a Números Romanos</h1>
+    
+    <input type="number" id="numero" placeholder="Número entero" min="1" max="3999" />
+    <button onclick="convertirARomanos()">Convertir</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function convertirARomanos() {
+            const num = parseInt(document.getElementById('numero').value);
+            if (isNaN(num) || num < 1 || num > 3999) {
+                mostrarResultado("Por favor, ingresa un número entre 1 y 3999.");
+                return;
+            }
+
+            const romanos = [
+                { valor: 1000, simbolo: 'M' },
+                { valor: 900, simbolo: 'CM' },
+                { valor: 500, simbolo: 'D' },
+                { valor: 400, simbolo: 'CD' },
+                { valor: 100, simbolo: 'C' },
+                { valor: 90, simbolo: 'XC' },
+                { valor: 50, simbolo: 'L' },
+                { valor: 40, simbolo: 'XL' },
+                { valor: 10, simbolo: 'X' },
+                { valor: 9, simbolo: 'IX' },
+                { valor: 5, simbolo: 'V' },
+                { valor: 4, simbolo: 'IV' },
+                { valor: 1, simbolo: 'I' }
+            ];
+
+            let resultado = '';
+            let numero = num;
+
+            for (let i = 0; i < romanos.length; i++) {
+                while (numero >= romanos[i].valor) {
+                    resultado += romanos[i].simbolo;
+                    numero -= romanos[i].valor;
+                }
+            }
+
+            mostrarResultado(resultado);
+        }
+
+        function mostrarResultado(resultado) {
+            document.getElementById('resultado').textContent = 'Resultado: ' + resultado;
+        }
+    </script>
+
+</body>
+</html>

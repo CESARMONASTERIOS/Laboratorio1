@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dígitos Repetidos</title>
+    <script>
+        function mostrarDigitosRepetidos() {
+            var numero = document.getElementById("numero").value;
+            if (parseInt(numero) <= 100) {
+                document.getElementById("resultado").innerText = "Por favor, introduce un número mayor a 100.";
+                return;
+            }
+
+            var conteo = {};
+            for (var i = 0; i < numero.length; i++) {
+                var digito = numero[i];
+                conteo[digito] = (conteo[digito] || 0) + 1;
+            }
+
+            var repetidos = [];
+            for (var digito in conteo) {
+                if (conteo[digito] > 1) {
+                    repetidos.push(digito);
+                }
+            }
+
+            document.getElementById("resultado").innerText = 
+                repetidos.length > 0 
+                ? "Dígitos repetidos: " + repetidos.join(", ") 
+                : "No hay dígitos repetidos.";
+        }
+    </script>
+</head>
+<body>
+    <h2>Mostrar Dígitos Repetidos</h2>
+    <form onsubmit="event.preventDefault(); mostrarDigitosRepetidos();">
+        <label for="numero">Introduce un número mayor a 100:</label>
+        <input type="number" id="numero" min="101" required>
+        <button type="submit">Verificar</button>
+    </form>
+    <p id="resultado"></p>
+</body>
+</html>

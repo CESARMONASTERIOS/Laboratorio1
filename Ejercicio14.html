@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100px;
+            text-align: right;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-size: 20px;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculadora</h1>
+    
+    <input type="text" id="expresion" placeholder="Expresión" readonly />
+
+    <table>
+        <tr>
+            <td><button onclick="agregarNumero(7)">7</button></td>
+            <td><button onclick="agregarNumero(8)">8</button></td>
+            <td><button onclick="agregarNumero(9)">9</button></td>
+            <td><button onclick="setOperacion('/')">/</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="agregarNumero(4)">4</button></td>
+            <td><button onclick="agregarNumero(5)">5</button></td>
+            <td><button onclick="agregarNumero(6)">6</button></td>
+            <td><button onclick="setOperacion('*')">*</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="agregarNumero(1)">1</button></td>
+            <td><button onclick="agregarNumero(2)">2</button></td>
+            <td><button onclick="agregarNumero(3)">3</button></td>
+            <td><button onclick="setOperacion('-')">-</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="agregarNumero(0)">0</button></td>
+            <td><button onclick="setOperacion('!')">!</button></td>
+            <td><button onclick="potencia()">x<sup>y</sup></button></td>
+            <td><button onclick="setOperacion('+')">+</button></td>
+        </tr>
+        <tr>
+            <td colspan="4"><button onclick="calcular()">=</button></td>
+        </tr>
+    </table>
+
+    <div id="resultado"></div>
+
+    <script>
+        let expresion = '';
+
+        function agregarNumero(num) {
+            expresion += num;
+            document.getElementById('expresion').value = expresion;
+        }
+
+        function setOperacion(op) {
+            if (op === '!') {
+                calcularFactorial();
+            } else {
+                expresion += ' ' + op + ' ';
+                document.getElementById('expresion').value = expresion;
+            }
+        }
+
+        function calcular() {
+            try {
+                const partes = expresion.split(' ');
+                let resultado = parseFloat(partes[0]);
+
+                for (let i = 1; i < partes.length; i += 2) {
+                    const operador = partes[i];
+                    const siguienteNumero = parseFloat(partes[i + 1]);
+
+                    switch (operador) {
+                        case '+':
+                            resultado += siguienteNumero;
+                            break;
+                        case '-':
+                            resultado -= siguienteNumero;
+                            break;
+                        case '*':
+                            resultado *= siguienteNumero;
+                            break;
+                        case '/':
+                            if (siguienteNumero === 0) {
+                                mostrarResultado("Error: División por cero");
+                                return;
+                            }
+                            resultado /= siguienteNumero;
+                            break;
+                    }
+                }
+
+                mostrarResultado(resultado);
+            } catch (error) {
+                mostrarResultado("Error: Entrada inválida");
+            }
+        }
+
+        function calcularFactorial() {
+            const num = parseInt(expresion.split(' ')[0]);
+            if (num < 0) {
+                mostrarResultado("Error: Factorial de un número negativo no existe");
+                return;
+            }
+            let resultado = 1;
+            for (let i = 1; i <= num; i++) {
+                resultado *= i;
+            }
+            mostrarResultado(resultado);
+        }
+
+        function potencia() {
+            const partes = expresion.split(' ');
+            const base = parseFloat(partes[0]);
+            const exponente = parseFloat(partes[2]);
+            const resultado = Math.pow(base, exponente);
+            mostrarResultado(resultado);
+        }
+
+        function mostrarResultado(resultado) {
+            document.getElementById('resultado').textContent = 'Resultado: ' + resultado;
+        }
+    </script>
+
+</body>
+</html>

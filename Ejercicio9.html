@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generar Números Primos</title>
+    <script>
+        function esPrimo(numero) {
+            if (numero < 2) return false;
+            for (var i = 2; i <= Math.sqrt(numero); i++) {
+                if (numero % i === 0) return false;
+            }
+            return true;
+        }
+
+        function generarPrimos() {
+            var n = parseInt(document.getElementById("n").value);
+            var primos = [];
+            for (var i = 2; i <= n; i++) {
+                if (esPrimo(i)) primos.push(i);
+            }
+            document.getElementById("resultado").innerText = 
+                "Números primos hasta " + n + ": " + primos.join(", ");
+        }
+    </script>
+</head>
+<body>
+    <h2>Generar Números Primos hasta N</h2>
+    <form onsubmit="event.preventDefault(); generarPrimos();">
+        <label for="n">Introduce N:</label>
+        <input type="number" id="n" min="2" required>
+        <button type="submit">Generar</button>
+    </form>
+    <p id="resultado"></p>
+</body>
+</html>

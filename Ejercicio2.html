@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serie Binaria</title>
+    <script>
+        function generarSerieBinaria() {
+            var cantidad = parseInt(document.getElementById("cantidad").value);
+            var serie = "0";
+            for (var i = 1; i < cantidad; i++) {
+                serie += ", " + i.toString(2);
+            }
+            document.getElementById("resultado").innerText = "Serie: " + serie;
+        }
+    </script>
+</head>
+<body>
+    <h2>Generar Serie Binaria</h2>
+    <form onsubmit="event.preventDefault(); generarSerieBinaria();">
+        <label for="cantidad">Cantidad de números:</label>
+        <input type="number" id="cantidad" min="1" required>
+        <button type="submit">Generar</button>
+    </form>
+    <p id="resultado"></p>
+</body>
+</html>

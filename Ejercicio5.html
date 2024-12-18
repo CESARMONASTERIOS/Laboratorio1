@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rotar Pares a la Derecha</title>
+    <script>
+        function rotarPares() {
+            var numero = document.getElementById("numero").value;
+            if (numero.length < 6) {
+                document.getElementById("resultado").innerText = "El número debe tener al menos 6 dígitos.";
+                return;
+            }
+            var pares = [];
+            for (var i = 0; i < numero.length; i++) {
+                if (parseInt(numero[i]) % 2 === 0) pares.push(numero[i]);
+            }
+            pares.unshift(pares.pop()); // Rota los pares a la derecha
+            var resultado = "";
+            var index = 0;
+            for (var j = 0; j < numero.length; j++) {
+                if (parseInt(numero[j]) % 2 === 0) {
+                    resultado += pares[index++];
+                } else {
+                    resultado += numero[j];
+                }
+            }
+            document.getElementById("resultado").innerText = "Número Rotado: " + resultado;
+        }
+    </script>
+</head>
+<body>
+    <h2>Rotar Pares a la Derecha</h2>
+    <form onsubmit="event.preventDefault(); rotarPares();">
+        <label for="numero">Introduce un número:</label>
+        <input type="text" id="numero" minlength="6" required>
+        <button type="submit">Rotar</button>
+    </form>
+    <p id="resultado"></p>
+</body>
+</html>

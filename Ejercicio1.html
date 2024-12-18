@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serie de Fibonacci</title>
+</head>
+<body>
+    <h1>Generador de la Serie de Fibonacci</h1>
+    <form id="fibonacciForm">
+        <label for="cantidad">Introduce el número de términos:</label>
+        <br>
+        <input type="number" id="cantidad" name="cantidad" min="1" placeholder="Ejemplo: 10" required>
+        <br>
+        <button type="button" onclick="generarFibonacci()">Generar Serie</button>
+    </form>
+    <div id="resultado"></div>
+
+    <script>
+        function generarFibonacci() {
+            const cantidad = document.getElementById("cantidad").value;
+            const resultadoDiv = document.getElementById("resultado");
+
+            if (cantidad < 1) {
+                resultadoDiv.textContent = "Por favor, introduce un número válido mayor que 0.";
+                return;
+            }
+
+            let serie = [];
+            let a = 0, b = 1;
+
+            for (let i = 0; i < cantidad; i++) {
+                serie.push(a);
+                let temp = a + b;
+                a = b;
+                b = temp;
+            }
+
+            resultadoDiv.textContent = `Serie generada: ${serie.join(", ")}`;
+        }
+    </script>
+</body>
+</html>

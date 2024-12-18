@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serie Exponencial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-size: 20px;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Generar Serie Exponencial</h1>
+    <input type="number" id="numero" placeholder="Ingresa un número entero positivo" />
+    <button id="generar">Generar Serie</button>
+    <div id="resultado"></div>
+
+    <script>
+        document.getElementById('generar').addEventListener('click', function() {
+            const N = parseInt(document.getElementById('numero').value);
+            const resultadoDiv = document.getElementById('resultado');
+
+            if (isNaN(N) || N <= 0) {
+                resultadoDiv.textContent = 'Por favor, ingresa un número entero positivo.';
+                return;
+            }
+
+            let serieExponencial = [];
+            for (let i = 0; i <= N; i++) {
+                serieExponencial.push(Math.exp(i));
+            }
+
+            resultadoDiv.textContent = 'Serie Exponencial hasta ' + N + ': ' + serieExponencial.join(', ');
+        });
+    </script>
+
+</body>
+</html>
